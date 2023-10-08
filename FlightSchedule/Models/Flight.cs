@@ -26,10 +26,8 @@ namespace FlightSchedule.Models
 
     public enum FlightStatus
     {
-        USUAL = 0,
         NEW = 1,
         DISCONTINUED = 2
-
     }
 
     public class FlightResult

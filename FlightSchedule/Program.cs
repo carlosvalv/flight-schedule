@@ -19,7 +19,7 @@ namespace FlightScheduleDetection
 
             if (args.Length != 3)
             {
-                Console.WriteLine("Usage: YourProgram.exe <start date> <end date> <agency id>");
+                Console.WriteLine("<start date> <end date> <agency id> are required");
                 return;
             }
 
@@ -27,12 +27,9 @@ namespace FlightScheduleDetection
             var endDate = new DateTime(DateTime.Parse(args[1]).Ticks, DateTimeKind.Utc);
             var agencyId = int.Parse(args[2]);
 
-            // Create an instance of your DbContext.
             using var dbContext = InitializeDbContext();
-            var subscriptionRepository = new SubscriptionRepository(dbContext);
             var routeRepository = new RouteRepository(dbContext);
 
-            var agencySubscriptions = subscriptionRepository.GetSubscriptionsByAgencyId(agencyId);
             var routes = routeRepository.Get(agencyId, initDate, endDate);
 
             dbWatch.Stop();
@@ -40,14 +37,13 @@ namespace FlightScheduleDetection
 
             var resultFlights = DetectFlights(routes, initDate, endDate);
 
-
             GenerateCSVFile(resultFlights, "results.csv");
             algWatch.Stop();
             stopwatch.Stop();
             TimeSpan elapsedTime = stopwatch.Elapsed;
-            Console.WriteLine($"Execution time: {elapsedTime.TotalMilliseconds} ms");
+            Console.WriteLine($"Total execution time: {elapsedTime.TotalMilliseconds} ms");
             Console.WriteLine($"DB Time: {dbWatch.Elapsed.TotalMilliseconds} ms");
-            Console.WriteLine($"Execution time: {algWatch.Elapsed.TotalMilliseconds} ms");
+            Console.WriteLine($"Change detectino algorithm time: {algWatch.Elapsed.TotalMilliseconds} ms");
 
         }
 

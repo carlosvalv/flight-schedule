@@ -22,7 +22,6 @@ namespace FlightSchedule.DataAccess
             }
             catch (Exception ex)
             {
-                // Maneja la excepción de manera adecuada (registra, notifica, etc.).
                 throw;
             }
         }
@@ -37,7 +36,6 @@ namespace FlightSchedule.DataAccess
             }
             catch (Exception ex)
             {
-                // Maneja la excepción de manera adecuada (registra, notifica, etc.).
                 throw;
             }
         }
